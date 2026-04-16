@@ -1,10 +1,14 @@
 const durationButtons = document.querySelectorAll('.duration-button');
 const summaryDuration = document.getElementById('summary-duration');
 const summaryPrice = document.getElementById('summary-price');
-const summaryDate = document.getElementById('summary-date');
-const summaryTime = document.getElementById('summary-time');
-const eventDate = document.getElementById('event-date');
-const eventTime = document.getElementById('event-time');
+const summaryStartDate = document.getElementById('summary-start-date');
+const summaryEndDate = document.getElementById('summary-end-date');
+const summaryStartTime = document.getElementById('summary-start-time');
+const summaryEndTime = document.getElementById('summary-end-time');
+const eventStartDate = document.getElementById('event-start-date');
+const eventEndDate = document.getElementById('event-end-date');
+const eventStartTime = document.getElementById('event-start-time');
+const eventEndTime = document.getElementById('event-end-time');
 const priceMap = {1: '₹1,999', 5: '₹9,499', 10: '₹16,999'};
 const labelMap = {1: 'Hourly', 5: 'Half-Day', 10: 'Full-Day'};
 const slides = document.querySelector('.slides');
@@ -23,15 +27,36 @@ if (durationButtons.length) {
     });
 }
 
-if (eventDate) {
-    eventDate.addEventListener('input', () => {
-        summaryDate.textContent = eventDate.value;
+if (eventStartDate) {
+    eventStartDate.addEventListener('input', () => {
+        summaryStartDate.textContent = eventStartDate.value;
+        if (eventEndDate.value < eventStartDate.value) {
+            eventEndDate.value = eventStartDate.value;
+            summaryEndDate.textContent = eventEndDate.value;
+        }
+        eventEndDate.min = eventStartDate.value;
     });
 }
 
-if (eventTime) {
-    eventTime.addEventListener('input', () => {
-        summaryTime.textContent = eventTime.value;
+if (eventEndDate) {
+    eventEndDate.addEventListener('input', () => {
+        summaryEndDate.textContent = eventEndDate.value;
+        if (eventEndDate.value < eventStartDate.value) {
+            eventEndDate.value = eventStartDate.value;
+            summaryEndDate.textContent = eventEndDate.value;
+        }
+    });
+}
+
+if (eventStartTime) {
+    eventStartTime.addEventListener('input', () => {
+        summaryStartTime.textContent = eventStartTime.value;
+    });
+}
+
+if (eventEndTime) {
+    eventEndTime.addEventListener('input', () => {
+        summaryEndTime.textContent = eventEndTime.value;
     });
 }
 
